@@ -12,7 +12,7 @@ ${user_email}       cintia@ninjapixel.com
 ${user_pass}        pwd123
 
 ***Keywords***
-Auth Token
+Set Suite Var Auth Token
     [Arguments]         ${email}        ${password}
     Create Session      pixel           ${base_url} 
 
@@ -26,7 +26,7 @@ Auth Token
     Set Suite Variable  ${token}
 
 Post Product
-    [Arguments]         ${payload}      ${token}    ${remove}
+    [Arguments]         ${payload}    ${remove}
 
     Run Keyword If      "${remove}" == "before_remove"
     ...                 Remove Product By Title             ${payload['title']}
@@ -47,5 +47,25 @@ Post Token
     &{headers}=         Create Dictionary   Content-Type=application/json
 
     ${resp}=            Post Request    pixel       /auth           data=${payload}         headers=${headers}
+
+    [return]            ${resp}
+
+Get Product
+    [Arguments]         ${id}
+
+    Create Session      pixel           ${base_url} 
+    &{headers}=         Create Dictionary   Authorization=${token}      Content-Type=application/json
+
+    ${resp}=            Get Request    pixel      /products/${id}          headers=${headers}              
+
+    [return]            ${resp}
+
+Delete Product
+    [Arguments]         ${id}
+
+    Create Session      pixel           ${base_url} 
+    &{headers}=         Create Dictionary   Authorization=${token}      Content-Type=application/json
+
+    ${resp}=            Delete Request    pixel      /products/${id}          headers=${headers}              
 
     [return]            ${resp}
