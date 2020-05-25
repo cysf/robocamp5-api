@@ -35,8 +35,17 @@ Post Product
     
     &{headers}=         Create Dictionary   Authorization=${token}      Content-Type=application/json
 
-    ${resp}=            Post Request   pixel      /products       data=${payload}       headers=${headers}              
+    ${resp}=            Post Request    pixel      /products        data=${payload}         headers=${headers}              
 
     [return]            ${resp}
 
+Post Token
+    [Arguments]         ${payload}
+
+    Create Session      pixel           ${base_url} 
     
+    &{headers}=         Create Dictionary   Content-Type=application/json
+
+    ${resp}=            Post Request    pixel       /auth           data=${payload}         headers=${headers}
+
+    [return]            ${resp}

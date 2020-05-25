@@ -6,14 +6,14 @@ Resource            ../../resources/services.robot
 
 **Test Cases***
 Successfuly Login
-    ${payload}=         ???
+    ${payload}=         Get Json        login_ok.json
 
-    ${resp}=            Post Token    ${payload}           
+    ${resp}=            Post Token      ${payload}           
 
     Status Should Be    200     ${resp}
 
 Incorrect Password
-    ${payload}=         ???
+    ${payload}=         Create Dictionary   email=cintia@ninjapixel.com         pass=${EMPTY}
 
     ${resp}=            Post Token    ${payload}   
 
