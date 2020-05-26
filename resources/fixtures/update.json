@@ -1,0 +1,10 @@
+{
+    "title": "Super Mario Party",
+    "category": "Super Nintendo",
+    "price": "100.00",
+    "description": "Um jogo para a familia.",
+    "producers": [
+        "Nintendo"
+    ],
+    "cover": "super_mario.jpg"
+}
